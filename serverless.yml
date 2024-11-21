@@ -1,0 +1,24 @@
+service: stock-alert
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-nottheast-1
+
+functions:
+  stockAlert:
+    handler: handler.stockAlert
+    events:
+      - schedule:
+          rate: cron(0 0 0 * * ? *) # 日本時間の9時 (UTC 0時)
+      - schedule:
+          rate: cron(0 0 1 * * ? *) # 日本時間の10時 (UTC 1時)
+      - schedule:
+          rate: cron(30 2 2 * * ? *) # 日本時間の11時半 (UTC 2時30分)
+      - schedule:
+          rate: cron(0 0 4 * * ? *) # 日本時間の13時 (UTC 4時)
+      - schedule:
+          rate: cron(0 0 6 * * ? *) # 日本時間の15時 (UTC 6時)
+
+plugins:
+  - serverless-plugin-typescript
